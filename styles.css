@@ -244,7 +244,9 @@ body {
    Cursor Custom
 =========================== */
 body {
-    cursor: url('assets/img/cursor.png'), auto;
+    cursor: url('./assets/cursor.cur'),
+            url('./assets/cursor_2.png'), 
+             auto;
 }
 
 

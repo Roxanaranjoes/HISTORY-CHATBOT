@@ -2,31 +2,31 @@
 // Characters Data
 // =====================
 const personajes = [
-    { nombre: "Jesús", frase: "Bienaventurados los que buscan la verdad.", imagen: "assets/img/jesus.png" },
-    { nombre: "Frida Kahlo", frase: "Pies, ¿para qué los quiero si tengo alas para volar?", imagen: "assets/img/frida.png" },
-    { nombre: "Nikola Tesla", frase: "Si quieres encontrar los secretos del universo, piensa en energía.", imagen: "assets/img/tesla.png" },
-    { nombre: "Lao Tze", frase: "La naturaleza no se apresura, sin embargo, todo se logra.", imagen: "assets/img/lao.png" },
-    { nombre: "Cleopatra", frase: "No estoy hecha para vivir en la sombra de ningún hombre.", imagen: "assets/img/cleopatra.png" },
-    { nombre: "Canserbero", frase: "Lo importante no es cuántas veces caes, sino cuántas te levantas.", imagen: "assets/img/canserbero.png" },
-    { nombre: "Leonardo da Vinci", frase: "El aprendizaje nunca agota la mente.", imagen: "assets/img/davinci.png" },
-    { nombre: "Chester Bennington", frase: "I tried so hard and got so far, but in the end...", imagen: "assets/img/chester.png" },
-    { nombre: "Martin Luther King", frase: "I have a dream.", imagen: "assets/img/mlk.png" },
-    { nombre: "Michael Jackson", frase: "Heal the world, make it a better place.", imagen: "assets/img/mj.png" },
-    { nombre: "Atila", frase: "Donde pisa mi caballo no vuelve a crecer la hierba.", imagen: "assets/img/atila.png" },
-    { nombre: "Alejandro Magno", frase: "No hay nada imposible para quien lo intenta.", imagen: "assets/img/alejandro.png" },
-    { nombre: "Marco Aurelio", frase: "Todo lo que escuchamos es una opinión, no un hecho.", imagen: "assets/img/marco.png" },
-    { nombre: "Juana de Arco", frase: "Estoy hecha para hacer esto, aunque muera por ello.", imagen: "assets/img/juana.png" },
-    { nombre: "Abraham", frase: "Camina en mi presencia y sé perfecto.", imagen: "assets/img/abraham.png" },
-    { nombre: "Hitler", frase: "El poder sin control solo conduce a la destrucción.", imagen: "assets/img/hitler.png" },
-    { nombre: "Steve Jobs", frase: "Stay hungry, stay foolish.", imagen: "assets/img/jobs.png" },
-    { nombre: "Gabriel García Márquez", frase: "La vida no es la que uno vivió, sino la que uno recuerda.", imagen: "assets/img/gabo.png" },
-    { nombre: "Espartaco", frase: "Prefiero morir de pie que vivir de rodillas.", imagen: "assets/img/espartaco.png" },
-    { nombre: "Nobunaga", frase: "El guerrero no teme a la muerte, sino al olvido.", imagen: "assets/img/nobunaga.png" },
-    { nombre: "Newton", frase: "Estoy en los hombros de gigantes.", imagen: "assets/img/newton.png" },
-    { nombre: "José", frase: "Los sueños revelan lo que está por venir.", imagen: "assets/img/jose.png" },
-    { nombre: "Leónidas", frase: "¡Esta es Esparta!", imagen: "assets/img/leonidas.png" },
-    { nombre: "Walker Atkinson", frase: "La mente es la que crea las condiciones para el éxito.", imagen: "assets/img/atkinson.png" },
-    { nombre: "Brian Tracy", frase: "El éxito es el logro progresivo de un objetivo digno.", imagen: "assets/img/tracy.png" }
+    { nombre: "Jesús", frase: "Bienaventurados los que buscan la verdad.", imagen: "./assets/jesus.png" },
+    { nombre: "Frida Kahlo", frase: "Pies, ¿para qué los quiero si tengo alas para volar?", imagen: "./assets/frida.png" },
+    { nombre: "Nikola Tesla", frase: "Si quieres encontrar los secretos del universo, piensa en energía.", imagen: "./assets/tesla.png" },
+    { nombre: "Lao Tze", frase: "La naturaleza no se apresura, sin embargo, todo se logra.", imagen: "./assets/lao.png" },
+    { nombre: "Cleopatra", frase: "No estoy hecha para vivir en la sombra de ningún hombre.", imagen: "./assets/cleopatra.png" },
+    { nombre: "Canserbero", frase: "Lo importante no es cuántas veces caes, sino cuántas te levantas.", imagen: "./assets/canserbero.png" },
+    { nombre: "Leonardo da Vinci", frase: "El aprendizaje nunca agota la mente.", imagen: "./assets/davinci.png" },
+    { nombre: "Chester Bennington", frase: "I tried so hard and got so far, but in the end...", imagen: "./assets/chester.png" },
+    { nombre: "Martin Luther King", frase: "I have a dream.", imagen: "assets/mlk.png" },
+    { nombre: "Michael Jackson", frase: "Heal the world, make it a better place.", imagen: "./assets/mj.png" },
+    { nombre: "Atila", frase: "Donde pisa mi caballo no vuelve a crecer la hierba.", imagen: "./assets/atila.png" },
+    { nombre: "Alejandro Magno", frase: "No hay nada imposible para quien lo intenta.", imagen: "./assets/alejandro.png" },
+    { nombre: "Marco Aurelio", frase: "Todo lo que escuchamos es una opinión, no un hecho.", imagen: "./assets/marco.png" },
+    { nombre: "Juana de Arco", frase: "Estoy hecha para hacer esto, aunque muera por ello.", imagen: "./assets/juana.jpeg" },
+    { nombre: "Abraham", frase: "Camina en mi presencia y sé perfecto.", imagen: "./assets/abraham.png" },
+    { nombre: "Hitler", frase: "El poder sin control solo conduce a la destrucción.", imagen: "./assets/hitler.png" },
+    { nombre: "Steve Jobs", frase: "Stay hungry, stay foolish.", imagen: "./assets/jobs.png" },
+    { nombre: "Gabriel García Márquez", frase: "La vida no es la que uno vivió, sino la que uno recuerda.", imagen: "./assets/gabo.png" },
+    { nombre: "Espartaco", frase: "Prefiero morir de pie que vivir de rodillas.", imagen: "./assets/espartaco.png" },
+    { nombre: "Nobunaga", frase: "El guerrero no teme a la muerte, sino al olvido.", imagen: "./assets/nobunaga.png" },
+    { nombre: "Newton", frase: "Estoy en los hombros de gigantes.", imagen: "./assets/newton.png" },
+    { nombre: "José", frase: "Los sueños revelan lo que está por venir.", imagen: "./assets/jose.png" },
+    { nombre: "Leónidas", frase: "¡Esto es Esparta!", imagen: "./assets/leonidas.png" },
+    { nombre: "Walker Atkinson", frase: "La mente es la que crea las condiciones para el éxito.", imagen: "./assets/atkinson.png" },
+    { nombre: "Brian Tracy", frase: "El éxito es el logro progresivo de un objetivo digno.", imagen: "./assets/tracy.png" }
 ];
 
 const preguntasSugeridas = [
@@ -122,7 +122,7 @@ async function preguntarAOpenAI(mensajeUsuario) {
     const body = {
         model: "gpt-3.5-turbo",
         messages: [
-            { role: "system", content: `Eres ${personajeActual.nombre}. Responde como si fueras él o ella.` },
+            { role: "system", content: `Eres ${personajeActual.nombre}. Responde como si fueras él o ella, utiliza la jerga de la época, saluda en el idioma del personaje solo la primera vez que se te hable, utiliza coloquios propios y responde en 4 lineas. ` },
             { role: "user", content: mensajeUsuario }
         ],
         temperature: 0.7
