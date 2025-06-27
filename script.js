@@ -60,14 +60,34 @@ const acordeon = document.querySelector('.acordeon');
 const panelPreguntas = document.querySelector('.panel');
 const listaPreguntas = document.getElementById('lista-preguntas');
 
-const clickSound = document.getElementById('clickSound');
 const hoverSound = document.getElementById('hoverSound');
+const clickSound = document.getElementById('clickSound');
 
+// Changed to ‘let’ to initialize it in DOMContentLoaded
+let contadorPreguntasDisplay; 
 let personajeActual = personajes[Math.floor(Math.random() * personajes.length)];
 
 // =====================
 // Functions
 // =====================
+
+// Functions (New Section for Closures)
+function crearContadorPreguntasUsuario() {
+    let _contadorPreguntas = 0; // This variable is private for the closure
+
+    return function() {
+        _contadorPreguntas++; // Increments the counter each time it is called.
+        console.log(`El usuario ha hecho ${_contadorPreguntas} pregunta(s).`);
+        
+        // Here we update the element in the DOM, if it has already been initialized.
+        if (contadorPreguntasDisplay) { 
+            contadorPreguntasDisplay.textContent = _contadorPreguntas;
+        }
+        return _contadorPreguntas;
+    };
+}
+
+let contarPreguntasUsuario;
 
 // Load Character Info
 function cargarPersonaje() {
@@ -162,8 +182,14 @@ enviarBtn.addEventListener('click', () => {
     clickSound.play();
     agregarMensaje(texto, 'usuario', 'Tú');
     mensajeInput.value = '';
+     // CHANGE HERE: CALL TO CLOSURE to increase and update the counter
+    contarPreguntasUsuario(); 
 
-    preguntarAOpenAI(texto);
+   // CHANGE HERE: Passing the callback to askAOpenAI
+    preguntarAOpenAI(texto, (respuestaPersonaje) => {
+        console.log("¡Callback ejecutado! La respuesta del personaje fue:", respuestaPersonaje);
+
+    });
 });
 
 // Enter Key
@@ -215,6 +241,13 @@ document.querySelectorAll('button, li').forEach(el => {
 // Init
 // =====================
 window.addEventListener('DOMContentLoaded', () => {
+    cargarPersonaje();
+ // Initialize the DOM element for the counter here, after the HTML is loaded
+    contadorPreguntasDisplay = document.getElementById('contadorPreguntas');
+    
+    // Initialize the closure instance here
+    contarPreguntasUsuario = crearContadorPreguntasUsuario();
+
     cargarPersonaje();
     agregarMensaje(`Estás hablando con ${personajeActual.nombre}.`, 'personaje', personajeActual.nombre);
 });
