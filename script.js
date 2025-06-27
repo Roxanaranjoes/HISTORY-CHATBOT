@@ -10,7 +10,7 @@ const personajes = [
     { nombre: "Canserbero", frase: "Lo importante no es cuántas veces caes, sino cuántas te levantas.", imagen: "./assets/canserbero.png" },
     { nombre: "Leonardo da Vinci", frase: "El aprendizaje nunca agota la mente.", imagen: "./assets/davinci.png" },
     { nombre: "Chester Bennington", frase: "I tried so hard and got so far, but in the end...", imagen: "./assets/chester.png" },
-    { nombre: "Martin Luther King", frase: "I have a dream.", imagen: "assets/mlk.png" },
+    { nombre: "Martin Luther King", frase: "I have a dream.", imagen: "./assets/mlk.png" },
     { nombre: "Michael Jackson", frase: "Heal the world, make it a better place.", imagen: "./assets/mj.png" },
     { nombre: "Atila", frase: "Donde pisa mi caballo no vuelve a crecer la hierba.", imagen: "./assets/atila.png" },
     { nombre: "Alejandro Magno", frase: "No hay nada imposible para quien lo intenta.", imagen: "./assets/alejandro.png" },
@@ -38,11 +38,6 @@ const preguntasSugeridas = [
     "¿Qué piensas sobre el poder y la justicia?",
     "¿Cuál es tu filosofía de vida?"
 ];
-
-// =====================
-// API Key 
-// =====================
-const apiKey = ""; 
 
 // =====================
 // DOM Elements
@@ -110,14 +105,41 @@ function limpiarChat() {
     chatBox.innerHTML = '';
 }
 
+// -------------------- Delay artificial --------------------
+function cargarHistorialFalso() {
+  return new Promise(resolve => {
+    const cargando = agregarMensaje("Cargando mensajes antiguos…", "sistema");
+    setTimeout(() => { cargando.remove(); resolve(); }, 1500); // 1,5 s
+  });
+}
+
+// -------------------- Saludo inicial --------------------
+function renderizarHistorial() {
+  limpiarChat();
+  agregarMensaje(`Estás hablando con ${personajeActual.nombre}.`, "personaje", personajeActual.nombre);
+}
+
+// -------------------- Enviar mensaje --------------------
+function enviarMensaje() {
+  const texto = mensajeInput.value.trim();
+  if (!texto) return;
+  clickSound.play();
+  agregarMensaje(texto, "usuario", "Tú");
+  mensajeInput.value = "";
+  preguntarAOpenAI(texto);
+}
+
+
 // Connect to OpenAI API
 async function preguntarAOpenAI(mensajeUsuario) {
-    const url = "https://api.openai.com/v1/chat/completions";
+    /*const url = "https://api.openai.com/v1/chat/completions";
 
     const headers = {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${apiKey}`
-    };
+    };*/
+    const url = "http://localhost:3001/chat";
+    const headers = { "Content-Type": "application/json" };
 
     const body = {
         model: "gpt-3.5-turbo",
@@ -155,7 +177,7 @@ async function preguntarAOpenAI(mensajeUsuario) {
 // =====================
 
 // Send Message
-enviarBtn.addEventListener('click', () => {
+/*enviarBtn.addEventListener('click', () => {
     const texto = mensajeInput.value.trim();
     if (texto === "") return;
 
@@ -164,22 +186,28 @@ enviarBtn.addEventListener('click', () => {
     mensajeInput.value = '';
 
     preguntarAOpenAI(texto);
-});
+});*/
+enviarBtn.addEventListener('click', enviarMensaje);
 
 // Enter Key
-mensajeInput.addEventListener('keypress', (e) => {
+/*mensajeInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         enviarBtn.click();
     }
+});*/
+mensajeInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') enviarMensaje();
 });
 
 // Random Character Button
 elegirPersonajeBtn.addEventListener('click', () => {
     clickSound.play();
     personajeActual = personajes[Math.floor(Math.random() * personajes.length)];
-    cargarPersonaje();
+    /*cargarPersonaje();
     limpiarChat();
-    agregarMensaje(`Estás hablando con ${personajeActual.nombre}.`, 'personaje', personajeActual.nombre);
+    agregarMensaje(`Estás hablando con ${personajeActual.nombre}.`, 'personaje', personajeActual.nombre);*/
+    cargarPersonaje();
+    renderizarHistorial();
 });
 
 // Acordeon Toggle
@@ -214,10 +242,16 @@ document.querySelectorAll('button, li').forEach(el => {
 // =====================
 // Init
 // =====================
-window.addEventListener('DOMContentLoaded', () => {
+/*window.addEventListener('DOMContentLoaded', () => {
     cargarPersonaje();
     agregarMensaje(`Estás hablando con ${personajeActual.nombre}.`, 'personaje', personajeActual.nombre);
+});*/
+window.addEventListener('DOMContentLoaded', async () => {
+  cargarPersonaje();
+  await cargarHistorialFalso();
+  renderizarHistorial();
 });
+
 
 
 
