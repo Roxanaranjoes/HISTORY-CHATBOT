@@ -105,7 +105,7 @@ function limpiarChat() {
     chatBox.innerHTML = '';
 }
 
-// -------------------- Delay artificial --------------------
+// Artificial delay
 function cargarHistorialFalso() {
   return new Promise(resolve => {
     const cargando = agregarMensaje("Cargando mensajes antiguos…", "sistema");
@@ -113,13 +113,13 @@ function cargarHistorialFalso() {
   });
 }
 
-// -------------------- Saludo inicial --------------------
+// Initial greeting
 function renderizarHistorial() {
   limpiarChat();
   agregarMensaje(`Estás hablando con ${personajeActual.nombre}.`, "personaje", personajeActual.nombre);
 }
 
-// -------------------- Enviar mensaje --------------------
+// Send message
 function enviarMensaje() {
   const texto = mensajeInput.value.trim();
   if (!texto) return;
@@ -132,12 +132,6 @@ function enviarMensaje() {
 
 // Connect to OpenAI API
 async function preguntarAOpenAI(mensajeUsuario) {
-    /*const url = "https://api.openai.com/v1/chat/completions";
-
-    const headers = {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`
-    };*/
     const url = "http://localhost:3001/chat";
     const headers = { "Content-Type": "application/json" };
 
@@ -177,24 +171,9 @@ async function preguntarAOpenAI(mensajeUsuario) {
 // =====================
 
 // Send Message
-/*enviarBtn.addEventListener('click', () => {
-    const texto = mensajeInput.value.trim();
-    if (texto === "") return;
-
-    clickSound.play();
-    agregarMensaje(texto, 'usuario', 'Tú');
-    mensajeInput.value = '';
-
-    preguntarAOpenAI(texto);
-});*/
 enviarBtn.addEventListener('click', enviarMensaje);
 
 // Enter Key
-/*mensajeInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        enviarBtn.click();
-    }
-});*/
 mensajeInput.addEventListener('keypress', e => {
     if (e.key === 'Enter') enviarMensaje();
 });
@@ -203,9 +182,6 @@ mensajeInput.addEventListener('keypress', e => {
 elegirPersonajeBtn.addEventListener('click', () => {
     clickSound.play();
     personajeActual = personajes[Math.floor(Math.random() * personajes.length)];
-    /*cargarPersonaje();
-    limpiarChat();
-    agregarMensaje(`Estás hablando con ${personajeActual.nombre}.`, 'personaje', personajeActual.nombre);*/
     cargarPersonaje();
     renderizarHistorial();
 });
@@ -242,10 +218,6 @@ document.querySelectorAll('button, li').forEach(el => {
 // =====================
 // Init
 // =====================
-/*window.addEventListener('DOMContentLoaded', () => {
-    cargarPersonaje();
-    agregarMensaje(`Estás hablando con ${personajeActual.nombre}.`, 'personaje', personajeActual.nombre);
-});*/
 window.addEventListener('DOMContentLoaded', async () => {
   cargarPersonaje();
   await cargarHistorialFalso();
