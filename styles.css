@@ -17,6 +17,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 0 10px;
+    cursor: url('./assets/cursor.cur'),
+            url('./assets/cursor_2.png'), 
+             auto;
 }
 
 /* ========================
@@ -241,12 +245,67 @@ body {
 }
 
 /* ========================
-   Cursor Custom
+   Responsive Design
 =========================== */
-body {
-    cursor: url('./assets/cursor.cur'),
-            url('./assets/cursor_2.png'), 
-             auto;
+
+
+@media (max-width: 1024px) {
+    body {
+        height: auto;         
+        align-items: flex-start;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        height: auto;         
+    }
+
+    .personaje-panel,
+    .chat-box,
+    .panel-derecho {
+        margin-bottom: 20px;
+    }
+
+    .chat-box {
+        max-height: 400px;
+    }
 }
 
 
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
+    .input-box {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .input-box input,
+    .input-box button {
+        width: 100%;
+    }
+
+    .personaje-panel h2 {
+        font-size: 20px;
+    }
+
+    .personaje-panel p {
+        font-size: 14px;
+    }
+
+    .chat-box {
+        max-height: 300px;
+    }
+}
