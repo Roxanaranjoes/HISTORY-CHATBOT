@@ -160,7 +160,9 @@ const hoverSound = document.getElementById("hoverSound");
 
 let personajeActual = personajes[Math.floor(Math.random() * personajes.length)];
 
+
 let historialConversacion = [];
+cargarPersonaje();
 
 // =====================
 // Functions
@@ -247,7 +249,7 @@ async function preguntarAOpenAI() {
   const url = "http://localhost:3001/chat";
   const headers = { "Content-Type": "application/json" };
 
-  // Recorta historial si es muy grande (máx 40 mensajes)
+  
   if (historialConversacion.length > 40) {
     historialConversacion = historialConversacion.slice(-40);
   }
@@ -312,6 +314,7 @@ elegirPersonajeBtn.addEventListener("click", () => {
   clickSound.play();
   personajeActual = personajes[Math.floor(Math.random() * personajes.length)];
   historialConversacion = [];
+  cargarPersonaje();
   renderizarHistorial();
 });
 
