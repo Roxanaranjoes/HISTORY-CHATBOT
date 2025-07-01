@@ -158,6 +158,9 @@ const listaPreguntas = document.getElementById("lista-preguntas");
 const clickSound = document.getElementById("clickSound");
 const hoverSound = document.getElementById("hoverSound");
 
+
+// Changed to ‘let’ to initialize it in DOMContentLoaded
+let contadorPreguntasDisplay; 
 let personajeActual = personajes[Math.floor(Math.random() * personajes.length)];
 
 let historialConversacion = [];
@@ -166,6 +169,26 @@ cargarPersonaje();
 // =====================
 // Functions
 // =====================
+
+
+// Functions (New Section for Closures) -----------------------------
+function crearContadorPreguntasUsuario() {
+    let _contadorPreguntas = 0;
+
+    return function() {
+        _contadorPreguntas++;
+        
+        const contadorPreguntasDisplay = document.getElementById("contadorPreguntas");
+        if (contadorPreguntasDisplay) {
+            contadorPreguntasDisplay.textContent = _contadorPreguntas;
+        }
+
+        return _contadorPreguntas;
+    };
+}
+
+let contarPreguntasUsuario;
+
 
 // Load Character Info
 function cargarPersonaje() {
@@ -211,146 +234,148 @@ function limpiarChat() {
   chatBox.innerHTML = "";
 }
 
-// Artificial delay
-function cargarHistorialFalso() {
-  return new Promise((resolve) => {
-    const cargando = agregarMensaje("Cargando mensajes antiguos…", "sistema");
-    setTimeout(() => {
-      cargando.remove();
-      resolve();
-    }, 1500);
-  });
-}
-
-// Initial greeting
-function renderizarHistorial() {
-  limpiarChat();
-  agregarMensaje(
-    `Estás hablando con ${personajeActual.nombre}.`,
-    "personaje",
-    personajeActual.nombre
-  );
-}
-
-// Send message
-function enviarMensaje() {
-  const texto = mensajeInput.value.trim();
-  if (!texto) return;
-  clickSound.play();
-  agregarMensaje(texto, "usuario", "Tú");
-  historialConversacion.push({ role: "user", content: texto });
-  mensajeInput.value = "";
-  preguntarAOpenAI();
-}
-
-//typing simulator
-function simularTipeo(respuesta, mensajeElemento, callback) {
-  // 1. Mostrar animación de "pensando..."
-  let puntos = 0;
-  mensajeElemento.textContent = "Estoy pensando en tu pregunta";
-
-  const pensandoInterval = setInterval(() => {
-    puntos = (puntos + 1) % 4; // 0,1,2,3 → vuelve a 0
-    mensajeElemento.textContent = "Estoy pensando en tu pregunta" + ".".repeat(puntos);
-  }, 300); 
-
-  // 2. Espera 1.5 segundos simulando el "procesamiento AI"
-  setTimeout(() => {
-    clearInterval(pensandoInterval); // Detiene animación
-    mensajeElemento.textContent = ""; // Limpia el texto
-
-    // 3. Comienza el tipeo letra por letra
-    let texto = "";
-    let indiceLetra = 0;
-
-    const tipeoInterval = setInterval(() => {
-      texto += respuesta[indiceLetra];
-      mensajeElemento.textContent = texto;
-      indiceLetra++;
-
-      // Scroll mientras escribe
-      chatBox.scrollTop = chatBox.scrollHeight;
-
-      if (indiceLetra >= respuesta.length) {
-        clearInterval(tipeoInterval);
-        if (typeof callback === "function") {
-          callback();
-        }
-      }
-    }, 50);
-  }, 2000); // Tiempo de "pensamiento"
-}
-
-// Connect to OpenAI API
-async function preguntarAOpenAI() {
-  const url = "https://history-chatbot-v1u7.onrender.com/chat";
-
-  const headers = { "Content-Type": "application/json" };
-
-  if (historialConversacion.length > 40) {
-    historialConversacion = historialConversacion.slice(-40);
+  // Artificial delay
+  function cargarHistorialFalso() {
+    return new Promise((resolve) => {
+      const cargando = agregarMensaje("Cargando mensajes antiguos…", "sistema");
+      setTimeout(() => {
+        cargando.remove();
+        resolve();
+      }, 1500);
+    });
   }
 
-  const body = {
-    model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "system",
-        content: `Eres ${personajeActual.nombre}. Responde como si fueras él o ella, utiliza la jerga de la época, saluda solo la primera vez que se te hable, usa coloquios propios y responde en 4 líneas.`,
-      },
-      ...historialConversacion,
-    ],
-    temperature: 0.7,
-  };
-
-  const escribiendoDiv = agregarMensaje(
-    "Esperando respuesta de la IA...",
-    "personaje",
-    personajeActual.nombre
-  );
-
-  const escribiendoP = escribiendoDiv.querySelector("p");
-  let puntos = 0;
-  const animarPuntos = setInterval(() => {
-    puntos = (puntos + 1) % 4; // 0 → 1 → 2 → 3 → 0
-    escribiendoP.textContent =
-      "Esperando respuesta de la IA" + ".".repeat(puntos);
-  }, 500);
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers,
-      body: JSON.stringify(body),
-    });
-
-    const data = await response.json();
-    const respuesta = data.choices[0].message.content;
-
-    clearInterval(animarPuntos);
-    escribiendoDiv.remove();
-    
-    const mensajeElemento = agregarMensaje(
-      "",
-      "personaje",
-      personajeActual.nombre
-    ).querySelector("p");
-
-    simularTipeo(respuesta, mensajeElemento, () => {
-      console.log(" Mensaje completamente tipeado.");
-    });
-
-    historialConversacion.push({ role: "assistant", content: respuesta });
-  } catch (error) {
-    console.error("Error en la API:", error);
-    escribiendoDiv.remove();
+  // Initial greeting
+  function renderizarHistorial() {
+    limpiarChat();
     agregarMensaje(
-      "❌ Error al conectar con OpenAI.",
+      `Estás hablando con ${personajeActual.nombre}.`,
       "personaje",
       personajeActual.nombre
     );
   }
-}
+
+  // Send message
+  function enviarMensaje() {
+    const texto = mensajeInput.value.trim();
+    if (!texto) return;
+    clickSound.play();
+    agregarMensaje(texto, "usuario", "Tú");
+    historialConversacion.push({ role: "user", content: texto });
+    mensajeInput.value = "";
+
+    contarPreguntasUsuario(); // Aquí aumentamos el contador ----------
+    preguntarAOpenAI();
+  }
+
+  //typing simulator
+  function simularTipeo(respuesta, mensajeElemento, callback) {
+    // 1. Mostrar animación de "pensando..."
+    let puntos = 0;
+    mensajeElemento.textContent = "Estoy pensando en tu pregunta";
+
+    const pensandoInterval = setInterval(() => {
+      puntos = (puntos + 1) % 4; // 0,1,2,3 → vuelve a 0
+      mensajeElemento.textContent = "Estoy pensando en tu pregunta" + ".".repeat(puntos);
+    }, 300); 
+
+    // 2. Espera 1.5 segundos simulando el "procesamiento AI"
+    setTimeout(() => {
+      clearInterval(pensandoInterval); // Detiene animación
+      mensajeElemento.textContent = ""; // Limpia el texto
+
+      // 3. Comienza el tipeo letra por letra
+      let texto = "";
+      let indiceLetra = 0;
+
+      const tipeoInterval = setInterval(() => {
+        texto += respuesta[indiceLetra];
+        mensajeElemento.textContent = texto;
+        indiceLetra++;
+
+        // Scroll mientras escribe
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        if (indiceLetra >= respuesta.length) {
+          clearInterval(tipeoInterval);
+          if (typeof callback === "function") {
+            callback();
+          }
+        }
+      }, 50);
+    }, 2000); // Tiempo de "pensamiento"
+  }
+
+  // Connect to OpenAI API
+  async function preguntarAOpenAI() {
+    const url = "https://history-chatbot-v1u7.onrender.com/chat";
+
+    const headers = { "Content-Type": "application/json" };
+
+    if (historialConversacion.length > 40) {
+      historialConversacion = historialConversacion.slice(-40);
+    }
+
+    const body = {
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: `Eres ${personajeActual.nombre}. Responde como si fueras él o ella, utiliza la jerga de la época, saluda solo la primera vez que se te hable, usa coloquios propios y responde en 4 líneas.`,
+        },
+        ...historialConversacion,
+      ],
+      temperature: 0.7,
+    };
+
+    const escribiendoDiv = agregarMensaje(
+      "Esperando respuesta de la IA...",
+      "personaje",
+      personajeActual.nombre
+    );
+
+    const escribiendoP = escribiendoDiv.querySelector("p");
+    let puntos = 0;
+    const animarPuntos = setInterval(() => {
+      puntos = (puntos + 1) % 4; // 0 → 1 → 2 → 3 → 0
+      escribiendoP.textContent =
+        "Esperando respuesta de la IA" + ".".repeat(puntos);
+    }, 500);
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(body),
+      });
+
+      const data = await response.json();
+      const respuesta = data.choices[0].message.content;
+
+      clearInterval(animarPuntos);
+      escribiendoDiv.remove();
+      
+      const mensajeElemento = agregarMensaje(
+        "",
+        "personaje",
+        personajeActual.nombre
+      ).querySelector("p");
+
+      simularTipeo(respuesta, mensajeElemento, () => {
+        console.log(" Mensaje completamente tipeado.");
+      });
+
+      historialConversacion.push({ role: "assistant", content: respuesta });
+    } catch (error) {
+      console.error("Error en la API:", error);
+      escribiendoDiv.remove();
+      agregarMensaje(
+        "❌ Error al conectar con OpenAI.",
+        "personaje",
+        personajeActual.nombre
+      );
+    }
+  }
 
 // =====================
 // Event Listeners
@@ -358,6 +383,7 @@ async function preguntarAOpenAI() {
 
 // Send Message
 enviarBtn.addEventListener("click", enviarMensaje);
+
 
 // Enter Key
 mensajeInput.addEventListener("keypress", (e) => {
@@ -371,6 +397,14 @@ elegirPersonajeBtn.addEventListener("click", () => {
   historialConversacion = [];
   cargarPersonaje();
   renderizarHistorial();
+   contarPreguntasUsuario = crearContadorPreguntasUsuario(); // Reinicia el contador si quieres -------------------------------
+
+     // Reiniciar visualmente el contador en el DOM--------------------------------------
+  const contadorPreguntasDisplay = document.getElementById("contadorPreguntas");
+  if (contadorPreguntasDisplay) {
+    contadorPreguntasDisplay.textContent = "0";
+  }
+
 });
 
 // Acordeon Toggle
@@ -411,4 +445,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   cargarPersonaje();
   await cargarHistorialFalso();
   renderizarHistorial();
+    contarPreguntasUsuario = crearContadorPreguntasUsuario();  // Inicializamos el contador solo UNA vez -----------
 });
