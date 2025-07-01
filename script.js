@@ -269,7 +269,7 @@ async function preguntarAOpenAI() {
   };
 
   const escribiendoDiv = agregarMensaje(
-    "...",
+    "Esperando respuesta de la IA...",
     "personaje",
     personajeActual.nombre
   );
