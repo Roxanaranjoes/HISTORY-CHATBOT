@@ -127,6 +127,11 @@ const personajes = [
     frase: "El éxito es el logro progresivo de un objetivo digno.",
     imagen: "./assets/tracy.png",
   },
+  {
+  nombre: "Katsushika Hokusai",
+  frase: "El arte es la forma de inmortalizar lo efímero.",
+  imagen: "./assets/hokusai.png"
+  ,}
 ];
 
 const preguntasSugeridas = [
@@ -261,7 +266,7 @@ function limpiarChat() {
     if (!texto) return;
     clickSound.play();
     agregarMensaje(texto, "usuario", "Tú");
-    historialConversacion.push({ role: "user", content: texto });
+    historialConversacion.push({ role: "user", content: texto, timestamp: new Date().toISOString() });
     mensajeInput.value = "";
 
     contarPreguntasUsuario(); // Aquí aumentamos el contador ----------
@@ -365,7 +370,7 @@ function limpiarChat() {
         console.log(" Mensaje completamente tipeado.");
       });
 
-      historialConversacion.push({ role: "assistant", content: respuesta });
+      historialConversacion.push({ role: "assistant", content: respuesta, timestamp: Date.now() });
     } catch (error) {
       console.error("Error en la API:", error);
       escribiendoDiv.remove();
