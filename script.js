@@ -160,7 +160,6 @@ const hoverSound = document.getElementById("hoverSound");
 
 let personajeActual = personajes[Math.floor(Math.random() * personajes.length)];
 
-
 let historialConversacion = [];
 cargarPersonaje();
 
@@ -244,14 +243,50 @@ function enviarMensaje() {
   preguntarAOpenAI();
 }
 
+//typing simulator
+function simularTipeo(respuesta, mensajeElemento, callback) {
+  // 1. Mostrar animación de "pensando..."
+  let puntos = 0;
+  mensajeElemento.textContent = "Estoy pensando en tu pregunta";
+
+  const pensandoInterval = setInterval(() => {
+    puntos = (puntos + 1) % 4; // 0,1,2,3 → vuelve a 0
+    mensajeElemento.textContent = "Estoy pensando en tu pregunta" + ".".repeat(puntos);
+  }, 300); 
+
+  // 2. Espera 1.5 segundos simulando el "procesamiento AI"
+  setTimeout(() => {
+    clearInterval(pensandoInterval); // Detiene animación
+    mensajeElemento.textContent = ""; // Limpia el texto
+
+    // 3. Comienza el tipeo letra por letra
+    let texto = "";
+    let indiceLetra = 0;
+
+    const tipeoInterval = setInterval(() => {
+      texto += respuesta[indiceLetra];
+      mensajeElemento.textContent = texto;
+      indiceLetra++;
+
+      // Scroll mientras escribe
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      if (indiceLetra >= respuesta.length) {
+        clearInterval(tipeoInterval);
+        if (typeof callback === "function") {
+          callback();
+        }
+      }
+    }, 50);
+  }, 2000); // Tiempo de "pensamiento"
+}
+
 // Connect to OpenAI API
 async function preguntarAOpenAI() {
   const url = "https://history-chatbot-v1u7.onrender.com/chat";
 
-
   const headers = { "Content-Type": "application/json" };
 
-  
   if (historialConversacion.length > 40) {
     historialConversacion = historialConversacion.slice(-40);
   }
@@ -274,6 +309,14 @@ async function preguntarAOpenAI() {
     personajeActual.nombre
   );
 
+  const escribiendoP = escribiendoDiv.querySelector("p");
+  let puntos = 0;
+  const animarPuntos = setInterval(() => {
+    puntos = (puntos + 1) % 4; // 0 → 1 → 2 → 3 → 0
+    escribiendoP.textContent =
+      "Esperando respuesta de la IA" + ".".repeat(puntos);
+  }, 500);
+
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -284,8 +327,18 @@ async function preguntarAOpenAI() {
     const data = await response.json();
     const respuesta = data.choices[0].message.content;
 
+    clearInterval(animarPuntos);
     escribiendoDiv.remove();
-    agregarMensaje(respuesta, "personaje", personajeActual.nombre);
+    
+    const mensajeElemento = agregarMensaje(
+      "",
+      "personaje",
+      personajeActual.nombre
+    ).querySelector("p");
+
+    simularTipeo(respuesta, mensajeElemento, () => {
+      console.log(" Mensaje completamente tipeado.");
+    });
 
     historialConversacion.push({ role: "assistant", content: respuesta });
   } catch (error) {
