@@ -6,132 +6,158 @@ const personajes = [
     nombre: "Jesús",
     frase: "Bienaventurados los que buscan la verdad.",
     imagen: "./assets/jesus.png",
+    epoca: "Antes de 0"
   },
   {
     nombre: "Frida Kahlo",
     frase: "Pies, ¿para qué los quiero si tengo alas para volar?",
     imagen: "./assets/frida.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Nikola Tesla",
     frase: "Si quieres encontrar los secretos del universo, piensa en energía.",
     imagen: "./assets/tesla.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Lao Tze",
     frase: "La naturaleza no se apresura, sin embargo, todo se logra.",
     imagen: "./assets/lao.png",
+    epoca: "Antes de 0"
   },
   {
     nombre: "Cleopatra",
     frase: "No estoy hecha para vivir en la sombra de ningún hombre.",
     imagen: "./assets/cleopatra.png",
+    epoca: "Antes de 0"
   },
   {
     nombre: "Canserbero",
     frase: "Lo importante no es cuántas veces caes, sino cuántas te levantas.",
     imagen: "./assets/canserbero.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Leonardo da Vinci",
     frase: "El aprendizaje nunca agota la mente.",
     imagen: "./assets/davinci.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Chester Bennington",
     frase: "I tried so hard and got so far, but in the end...",
     imagen: "./assets/chester.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Martin Luther King",
     frase: "I have a dream.",
     imagen: "./assets/mlk.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Michael Jackson",
     frase: "Heal the world, make it a better place.",
     imagen: "./assets/mj.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Atila",
     frase: "Donde pisa mi caballo no vuelve a crecer la hierba.",
     imagen: "./assets/atila.png",
+    epoca: "0-999"
   },
   {
     nombre: "Alejandro Magno",
     frase: "No hay nada imposible para quien lo intenta.",
     imagen: "./assets/alejandro.png",
+    epoca: "Antes de 0"
   },
   {
     nombre: "Marco Aurelio",
     frase: "Todo lo que escuchamos es una opinión, no un hecho.",
     imagen: "./assets/marco.png",
+    epoca: "0-999"
   },
   {
     nombre: "Juana de Arco",
     frase: "Estoy hecha para hacer esto, aunque muera por ello.",
     imagen: "./assets/juana.jpeg",
+    epoca: "1000-1999"
   },
   {
     nombre: "Abraham",
     frase: "Camina en mi presencia y sé perfecto.",
     imagen: "./assets/abraham.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Hitler",
     frase: "El poder sin control solo conduce a la destrucción.",
     imagen: "./assets/hitler.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Steve Jobs",
     frase: "Stay hungry, stay foolish.",
     imagen: "./assets/jobs.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Gabriel García Márquez",
     frase: "La vida no es la que uno vivió, sino la que uno recuerda.",
     imagen: "./assets/gabo.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Espartaco",
     frase: "Prefiero morir de pie que vivir de rodillas.",
     imagen: "./assets/espartaco.png",
+    epoca: "Antes de 0"
   },
   {
     nombre: "Nobunaga",
     frase: "El guerrero no teme a la muerte, sino al olvido.",
     imagen: "./assets/nobunaga.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Newton",
     frase: "Estoy en los hombros de gigantes.",
     imagen: "./assets/newton.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "José",
     frase: "Los sueños revelan lo que está por venir.",
     imagen: "./assets/jose.png",
+    epoca: "Antes de 0"
   },
   {
     nombre: "Leónidas",
     frase: "¡Esto es Esparta!",
     imagen: "./assets/leonidas.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Walker Atkinson",
     frase: "La mente es la que crea las condiciones para el éxito.",
     imagen: "./assets/atkinson.png",
+    epoca: "1000-1999"
   },
   {
     nombre: "Brian Tracy",
     frase: "El éxito es el logro progresivo de un objetivo digno.",
     imagen: "./assets/tracy.png",
+    epoca: "1000-1999"
   },
   {
   nombre: "Katsushika Hokusai",
   frase: "El arte es la forma de inmortalizar lo efímero.",
-  imagen: "./assets/hokusai.png"
-  ,}
+  imagen: "./assets/hokusai.png",
+  epoca: "1000-1999"
+  },
 ];
 
 const preguntasSugeridas = [
@@ -444,10 +470,78 @@ document.querySelectorAll("button, li").forEach((el) => {
 });
 
 // =====================
+// MenuCharacters
+// =====================
+function renderizarMenu() {
+  const contMenu = document.getElementById("contenedor-cartas");
+  contMenu.innerHTML = "";
+
+  // Group characters by era
+  const grupos = {};
+  personajes.forEach(p => {
+    if (!grupos[p.epoca]) grupos[p.epoca] = [];
+    grupos[p.epoca].push(p);
+  });
+
+  // Render each era group
+  Object.entries(grupos).forEach(([epoca, arr]) => {
+    const grupo = document.createElement("div");
+    grupo.className = "grupo-epoca";
+
+    const header = document.createElement("div");
+    header.className = "grupo-header";
+    header.innerHTML = `<span>${epoca}</span><span class="flecha">▶</span>`;
+    grupo.appendChild(header);
+
+    const wrap = document.createElement("div");
+    wrap.className = "cartas-wrap";
+
+    const grid = document.createElement("div");
+    grid.className = "cartas-grid";
+    wrap.appendChild(grid);
+    grupo.appendChild(wrap);
+
+    // Insert each character card
+    arr.forEach(pers => {
+      const carta = document.createElement("div");
+      carta.className = "carta";
+      carta.innerHTML = `
+        <img src="${pers.imagen}" alt="${pers.nombre}">
+        <h4>${pers.nombre}</h4>
+      `;
+      carta.addEventListener("click", () => {
+        personajeActual = pers;
+        cargarPersonaje();
+        renderizarHistorial();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      grid.appendChild(carta);
+    });
+
+    // Accordion: open/close the group and close others
+    header.addEventListener("click", () => {
+      document.querySelectorAll('.cartas-wrap.abierto').forEach(otroWrap => {
+        if (otroWrap !== wrap) {
+          otroWrap.classList.remove('abierto');
+          if (otroWrap.previousElementSibling) {
+            otroWrap.previousElementSibling.classList.remove('abierto');
+          }
+        }
+      });
+      const abierto = wrap.classList.toggle("abierto");
+      header.classList.toggle("abierto", abierto);
+    });
+
+    contMenu.appendChild(grupo);
+  });
+}
+
+// =====================
 // Init
 // =====================
 window.addEventListener("DOMContentLoaded", async () => {
   cargarPersonaje();
+  renderizarMenu();
   await cargarHistorialFalso();
   renderizarHistorial();
     contarPreguntasUsuario = crearContadorPreguntasUsuario();  // Inicializamos el contador solo UNA vez -----------
