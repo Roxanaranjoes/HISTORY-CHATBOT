@@ -304,9 +304,9 @@ transform: rotate(90deg);
 }
 
 .cartas-wrap.abierto {
-    max-height: 2000px; /* Suficiente para mostrar todas las cartas */
+    max-height: none;
     overflow: visible;
-    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: none;
 }
 
 .cartas-grid {

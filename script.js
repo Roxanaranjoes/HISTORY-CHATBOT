@@ -6,157 +6,157 @@ const personajes = [
     nombre: "Jesús",
     frase: "Bienaventurados los que buscan la verdad.",
     imagen: "./assets/jesus.png",
-    epoca: "Antes de 0"
+    epoca: "Antes de la era común"
   },
   {
     nombre: "Frida Kahlo",
     frase: "Pies, ¿para qué los quiero si tengo alas para volar?",
     imagen: "./assets/frida.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Nikola Tesla",
     frase: "Si quieres encontrar los secretos del universo, piensa en energía.",
     imagen: "./assets/tesla.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Lao Tze",
     frase: "La naturaleza no se apresura, sin embargo, todo se logra.",
     imagen: "./assets/lao.png",
-    epoca: "Antes de 0"
+    epoca: "Antes de la era común"
   },
   {
     nombre: "Cleopatra",
     frase: "No estoy hecha para vivir en la sombra de ningún hombre.",
     imagen: "./assets/cleopatra.png",
-    epoca: "Antes de 0"
+    epoca: "Antes de la era común"
   },
   {
     nombre: "Canserbero",
     frase: "Lo importante no es cuántas veces caes, sino cuántas te levantas.",
     imagen: "./assets/canserbero.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Leonardo da Vinci",
     frase: "El aprendizaje nunca agota la mente.",
     imagen: "./assets/davinci.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Chester Bennington",
     frase: "I tried so hard and got so far, but in the end...",
     imagen: "./assets/chester.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Martin Luther King",
     frase: "I have a dream.",
     imagen: "./assets/mlk.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Michael Jackson",
     frase: "Heal the world, make it a better place.",
     imagen: "./assets/mj.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Atila",
     frase: "Donde pisa mi caballo no vuelve a crecer la hierba.",
     imagen: "./assets/atila.png",
-    epoca: "0-999"
+    epoca: "desde el año 0 hasta 999"
   },
   {
     nombre: "Alejandro Magno",
     frase: "No hay nada imposible para quien lo intenta.",
     imagen: "./assets/alejandro.png",
-    epoca: "Antes de 0"
+    epoca: "Antes de la era común"
   },
   {
     nombre: "Marco Aurelio",
     frase: "Todo lo que escuchamos es una opinión, no un hecho.",
     imagen: "./assets/marco.png",
-    epoca: "0-999"
+    epoca: "desde el año 0 hasta 999"
   },
   {
     nombre: "Juana de Arco",
     frase: "Estoy hecha para hacer esto, aunque muera por ello.",
     imagen: "./assets/juana.jpeg",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Abraham",
     frase: "Camina en mi presencia y sé perfecto.",
     imagen: "./assets/abraham.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Hitler",
     frase: "El poder sin control solo conduce a la destrucción.",
     imagen: "./assets/hitler.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Steve Jobs",
     frase: "Stay hungry, stay foolish.",
     imagen: "./assets/jobs.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Gabriel García Márquez",
     frase: "La vida no es la que uno vivió, sino la que uno recuerda.",
     imagen: "./assets/gabo.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Espartaco",
     frase: "Prefiero morir de pie que vivir de rodillas.",
     imagen: "./assets/espartaco.png",
-    epoca: "Antes de 0"
+    epoca: "Antes de la era común"
   },
   {
     nombre: "Nobunaga",
     frase: "El guerrero no teme a la muerte, sino al olvido.",
     imagen: "./assets/nobunaga.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Newton",
     frase: "Estoy en los hombros de gigantes.",
     imagen: "./assets/newton.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "José",
     frase: "Los sueños revelan lo que está por venir.",
     imagen: "./assets/jose.png",
-    epoca: "Antes de 0"
+    epoca: "Antes de la era común"
   },
   {
     nombre: "Leónidas",
     frase: "¡Esto es Esparta!",
     imagen: "./assets/leonidas.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Walker Atkinson",
     frase: "La mente es la que crea las condiciones para el éxito.",
     imagen: "./assets/atkinson.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
     nombre: "Brian Tracy",
     frase: "El éxito es el logro progresivo de un objetivo digno.",
     imagen: "./assets/tracy.png",
-    epoca: "1000-1999"
+    epoca: "desde el año 1000 hasta 1999"
   },
   {
   nombre: "Katsushika Hokusai",
   frase: "El arte es la forma de inmortalizar lo efímero.",
   imagen: "./assets/hokusai.png",
-  epoca: "1000-1999"
+  epoca: "desde el año 1000 hasta 1999"
   },
 ];
 
@@ -483,8 +483,17 @@ function renderizarMenu() {
     grupos[p.epoca].push(p);
   });
 
-  // Render each era group
-  Object.entries(grupos).forEach(([epoca, arr]) => {
+  // Define the desired order for eras
+  const ordenEpocas = [
+    "Antes de la era común",
+    "desde el año 0 hasta 999",
+    "desde el año 1000 hasta 1999"
+  ];
+
+  // Sort the groups according to the desired order
+  Object.entries(grupos)
+    .sort((a, b) => ordenEpocas.indexOf(a[0]) - ordenEpocas.indexOf(b[0]))
+    .forEach(([epoca, arr]) => {
     const grupo = document.createElement("div");
     grupo.className = "grupo-epoca";
 
